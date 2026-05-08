@@ -1,0 +1,31 @@
+dCalendario = 
+VAR vAnoMin = YEAR(MIN(fOrcamentos[data_abertura]))
+VAR vAnoMax = YEAR(MAX(fOrcamentos[data_abertura]))
+VAR vDataInicial = DATE(vAnoMin, 01, 01)
+VAR vDataFinal = DATE(vAnoMax, 12, 31)
+RETURN
+ADDCOLUMNS(
+	CALENDAR(vDataInicial, vDataFinal),
+    "Ano" , YEAR ( [Date] ),
+    "Anomês nome", FORMAT ( [Date], "mmm/yy"),
+    "Anomês" , FORMAT([Date],"yyyy/mm"),
+    "Trim num" , QUARTER([Date]),
+    "Trim nome", FORMAT ([Date], "\Qq" ),
+    "Mês num" , MONTH ( [Date] ),
+    "Mês nome abreviado", FORMAT ( [Date], "mmm" ),
+    "Mês nome Completo", FORMAT ( [Date], "mmmm" ),
+    "Dia" , DAY([Date]),
+    "Dia da semana",WEEKDAY([Date],2),
+    "Dia da semana nome", left(FORMAT ([Date],"dddd"),3),
+    "Semana num",WEEKDAY([Date]),
+    "Dia de trabalho", IF(WEEKDAY([Date],2)=1||WEEKDAY([Date],2)=7,"N","S"),
+    "Ano atual" , IF(YEAR([Date])=YEAR(TODAY()),"S","N"),
+    "Mês atual" , IF(YEAR([Date])=YEAR(TODAY()) && MONTH([Date])=MONTH(TODAY()),"S","N"),
+    "Dia atual" , IF(YEAR([Date])=YEAR(TODAY()) && MONTH([Date])=MONTH(TODAY()) && DAY([Date])=DAY(TODAY()),"S","N"),
+    "Ano móvel" , DATEDIFF(TODAY(),[Date],YEAR),
+    "Trim. móvel",DATEDIFF(TODAY(),[Date],QUARTER),
+    "Mês móvel",DATEDIFF(TODAY(),[Date],MONTH),
+    "Semana móvel",DATEDIFF(TODAY(),[Date],WEEK),
+    "Dia movel",DATEDIFF(TODAY(),[Date],DAY)
+
+)
