@@ -1,0 +1,24 @@
+
+Cor Linha = 
+
+VAR _Campo =
+SELECTEDVALUE(
+	fPrecoCompra[percent_preco]
+)
+
+-- CORES
+VAR CorCinza   = "rgb(128,128,128)"
+VAR CorVermelho = "rgb(255,192,192)"
+VAR CorVerde   = "rgb(198,239,206)"
+VAR CorAzul    = "rgb(202,237,251)"
+
+RETURN
+
+SWITCH(
+    TRUE()
+    ,ISBLANK(_Campo), CorCinza
+    ,_Campo < -0.10, CorVermelho
+    ,_Campo >= -0.10 && _Campo <= 0.10, CorVerde
+    ,_Campo > 0.10, CorAzul
+    CorVerde
+)
